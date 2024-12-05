@@ -1,37 +1,32 @@
 // Smooth scrolling for navigation links
 document.querySelectorAll('nav a').forEach(link => {
   link.addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
+    e.preventDefault(); // Prevent default link behavior
+    const target = document.querySelector(this.getAttribute('href')); // Get the target section
     if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
+      target.scrollIntoView({ behavior: 'smooth' }); // Smoothly scroll to the target section
     }
   });
 });
 
 // Theme toggle functionality
 document.addEventListener('DOMContentLoaded', () => {
-  const themeToggleButton = document.getElementById('theme-toggle');
+  const themeToggleCheckbox = document.getElementById('theme-toggle'); // Toggle switch element
   const body = document.body;
 
-  // Check local storage for theme preference
+  // Check local storage for theme preference and apply it
   const currentTheme = localStorage.getItem('theme');
   if (currentTheme === 'dark') {
-    body.classList.add('dark-mode');
-    themeToggleButton.textContent = 'Switch to Light Mode';
+    body.classList.add('dark-mode'); // Apply dark mode if stored in local storage
+    themeToggleCheckbox.checked = true; // Set the toggle to "on" for dark mode
   }
 
-  // Add event listener for theme toggle
-  themeToggleButton?.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
+  // Add event listener to the toggle switch
+  themeToggleCheckbox.addEventListener('change', () => {
+    body.classList.toggle('dark-mode'); // Toggle the dark mode class on <body>
 
-    // Update button text
+    // Save the theme preference to local storage
     const isDarkMode = body.classList.contains('dark-mode');
-    themeToggleButton.textContent = isDarkMode
-      ? 'Switch to Light Mode'
-      : 'Switch to Dark Mode';
-
-    // Save preference in local storage
     localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
   });
 });
